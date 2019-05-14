@@ -142,9 +142,9 @@ def naiveBayes():
     calculateProbabilitiesForNB()
     for attr in attributeList :
         if(attr.index == len(attributeList)-1):
-            print ""
+            print("")
             break
-        print attr.Name + " " + attributeList[-1].Name
+        print(attr.Name + " " + attributeList[-1].Name)
     y1 = attributeList[-1].values[0]
     y2 = attributeList[-1].values[1]
     correctClassified = 0
@@ -164,21 +164,21 @@ def naiveBayes():
         p_of_y1_line = getProbability(numerator, numerator+denominator)
         p_of_y2_line = getProbability(denominator, numerator+denominator)
         if(p_of_y2_line > p_of_y1_line):
-            print y2 + " "+line[-1] + " ",
+            print(y2 + " "+line[-1] + " ")
             print("%.16f" % p_of_y2_line)
             if(y2 == line[-1]):
                 correctClassified+=1
             else :
                 incorrectlyClassified+=1
         else :
-            print y1 + " "+line[-1] + " ",
+            print(y1 + " "+line[-1] + " ")
             print("%.16f" % p_of_y1_line)
             if(y1 == line[-1]):
                 correctClassified+=1
             else : 
                 incorrectlyClassified+=1
-    print ""
-    print correctClassified
+    print("")
+    print(correctClassified)
     return float(correctClassified)/(incorrectlyClassified+correctClassified) 
 
 
@@ -255,19 +255,19 @@ def prims():
         parent_list[edge[2].Name] = edge[1]
     for attr in attributeList : 
         if(attr.Name.lower()=="class"):
-            print ""
+            print("")
             break
-        if(parent_list.has_key(attr.Name)):
-            print attr.Name+ " " + parent_list[attr.Name].Name+ " "+ attributeList[-1].Name
+        if(attr.Name in parent_list):
+            print(attr.Name+ " " + parent_list[attr.Name].Name+ " "+ attributeList[-1].Name)
         else  :
-            print attr.Name+ " " + attributeList[-1].Name
+            print(attr.Name+ " " + attributeList[-1].Name)
 
 def calculateProbabilitiesForTAN():
     y1 = attributeList[-1].values[0]
     y2 = attributeList[-1].values[1]
     for attr in attributeList :
         for value1 in attr.values : 
-            if(parent_list.has_key(attr.Name)):
+            if(attr.Name in parent_list):
                 parent_of_x = parent_list[attr.Name]
                 for value2 in parent_of_x.values :
                     no_x1_parentx1_y1 = getInstancesConditionalTAN(attr.index,value1, parent_of_x.index, value2, len(attributeList)-1, y1)
@@ -300,7 +300,7 @@ def tan():
         for l in line :
             if(index==len(attributeList)-1):
                 break
-            if(parent_list.has_key(attributeList[index].Name)):
+            if(attributeList[index].Name in parent_list):
                 parent = parent_list[attributeList[index].Name]
                 parent_value = line[parent.index]
                 key1 = attributeList[index].Name+"="+l+"|"+parent.Name+"="+parent_value+",Y="+y1
@@ -317,21 +317,21 @@ def tan():
         p_of_y2_x = getProbability(denominator, numerator+denominator)
         
         if(p_of_y1_x >=p_of_y2_x):
-            print y1+" "+line[-1]+ " ",
+            print(y1+" "+line[-1]+ " ")
             print("%.16f" % p_of_y1_x)
             if(y1==line[-1]):
                 correctClassified+=1
             else : 
                 incorrectlyClassified +=1
         else :
-            print y2+" "+line[-1]+ " ",
+            print(y2+" "+line[-1]+ " ")
             print("%.16f" % p_of_y2_x)
             if(y2==line[-1]):
                 correctClassified+=1
             else : 
                 incorrectlyClassified +=1
-    print ""
-    print correctClassified
+    print("")
+    print(correctClassified)
     return float(correctClassified)/(correctClassified+incorrectlyClassified)
         
         
@@ -342,7 +342,7 @@ def learningCurve():
     listOfSampleSizes = [100]
     list1 = random.sample(data,50)
     data = list1
-    print naiveBayes()
+    print(naiveBayes())
     #print accuracy1
     
 
@@ -362,6 +362,7 @@ def main():
     elif(learningType == "t"):
         tan()
     else :
-        print "Usage: bayes <train-set-file> <test-set-file> <n|t>"
+        print("Usage: bayes <train-set-file> <test-set-file> <n|t>")
         
-main()
+if __name__ == '__main__':
+    main()
